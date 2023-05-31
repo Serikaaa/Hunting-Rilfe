@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Bullet : MonoBehaviour
+using Unity.Netcode;
+public class Bullet : NetworkBehaviour
 {
     public GameObject hitEffect;
     private void OnCollisionEnter2D(Collision2D collision)
@@ -12,3 +12,4 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 }
+
