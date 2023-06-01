@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7107319987824232683}
   - component: {fileID: 7209845190326240486}
   - component: {fileID: 7209845190326240489}
-  - component: {fileID: -6911073960182703126}
+  - component: {fileID: -4077679128628062796}
   m_Layer: 0
   m_Name: player 1
   m_TagString: Player
@@ -141,9 +141,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
 --- !u!61 &7209845190326240486
@@ -189,7 +186,7 @@ MonoBehaviour:
     type: 3}
   bulletForce: 10
   fireRate: 0.5
---- !u!114 &-6911073960182703126
+--- !u!114 &-4077679128628062796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,7 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7209845190326240492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
+  m_Script: {fileID: 11500000, guid: d6aadfcafe0507046a95831d803e840a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncPositionX: 1
@@ -213,12 +210,8 @@ MonoBehaviour:
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 0
-  UseQuaternionCompression: 0
-  UseHalfFloatPrecision: 0
   InLocalSpace: 0
   Interpolate: 1
-  SlerpPosition: 0
 --- !u!1 &8359140266385075246
 GameObject:
   m_ObjectHideFlags: 0

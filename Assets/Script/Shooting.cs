@@ -16,10 +16,11 @@ public class Shooting : NetworkBehaviour
         if (Input.GetButtonDown("Fire1") && Time.time >nextFire)
         {
             nextFire = Time.time + fireRate;
-            Shoot();
+            ShootServerRpc();
         }
     }
-    void Shoot()
+    [ServerRpc]
+    private void ShootServerRpc()
     {
         GameObject bullet1 = Instantiate(bulletPrefab, firePoint1.position, firePoint1.rotation);
 
@@ -28,6 +29,5 @@ public class Shooting : NetworkBehaviour
         bullet1.GetComponent<NetworkObject>().Spawn();
         Destroy(bullet1, 0.5f);
     }
-
 
 }
