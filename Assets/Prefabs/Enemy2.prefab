@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 3
+  speed: 2.5
   rotateSpeed: 0.25
   bulletPrefab: {fileID: 5907728732961989228, guid: 3dbaba4928eb1ea40ac22dc18062c4c3,
     type: 3}

@@ -36,7 +36,7 @@ public class Enemy2 : MonoBehaviour
         {
             RotateTowardsTarget();
         }
-        if(Vector2.Distance(target.position, transform.position) <= distanceToShoot)
+        if(target != null && Vector2.Distance(target.position, transform.position) <= distanceToShoot)
         {
             Shoot();
         }
@@ -77,10 +77,6 @@ public class Enemy2 : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
             }
-        }
-        else
-        {
-            GetTarget();
         }
        
         //Move forward
