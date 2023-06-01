@@ -4,8 +4,9 @@ using UnityEngine;
 using Unity.Netcode;
 public class Shooting : NetworkBehaviour
 {
-    public Transform firePoint1;
-    public GameObject bulletPrefab;
+    [SerializeField] public Transform firePoint1;
+    [SerializeField] public GameObject bulletPrefab;
+    [SerializeField] private List<GameObject> spawnedbullet = new List<GameObject>();
     public float bulletForce = 10f;
     public float fireRate = 0.5F;
     private float nextFire = 0.0F;
@@ -23,11 +24,20 @@ public class Shooting : NetworkBehaviour
     private void ShootServerRpc()
     {
         GameObject bullet1 = Instantiate(bulletPrefab, firePoint1.position, firePoint1.rotation);
-
         Rigidbody2D rb = bullet1.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint1.up * bulletForce, ForceMode2D.Impulse);
+        spawnedbullet.Add(bullet1);
+        bullet1.GetComponent<Bullet>().parent = this;
         bullet1.GetComponent<NetworkObject>().Spawn();
-        Destroy(bullet1, 0.5f);
     }
+    [ServerRpc(RequireOwnership =false)]
+    public void DestroyServerRpc()
+    {
+        GameObject toDestroy = spawnedbullet[0];
+        toDestroy.GetComponent<NetworkObject>().Despawn();
+        spawnedbullet.Remove(toDestroy);
+        Destroy(toDestroy);
+    }
+    
 
 }
