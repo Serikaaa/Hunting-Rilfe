@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,7 +17,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float enemiesPerSecond = 0.5f;
     [SerializeField] private float timeBetweenWaves = 5f;
     [SerializeField] private float difficultyScalingFactor = 0.75f;
-    [SerializeField] public int numsOfWave = 5; 
+    [SerializeField] public int numsOfWave = 5;
+    [SerializeField] private int waveRemaining;
+    [SerializeField] private TextMeshProUGUI waveLeft;
+    [SerializeField] private TextMeshProUGUI announcer;
 
     [Header("Event")]
     public static UnityEvent onEnemyDestroy = new UnityEvent();
@@ -35,6 +39,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        waveRemaining = numsOfWave;
+        waveLeft.text = "Wave Remaining: " + waveRemaining.ToString();
+        announcer.text = "Survive for 5 wave";
+        Destroy(announcer, 4f);
         StartCoroutine(StartWave());
     }
 
@@ -54,7 +62,10 @@ public class EnemySpawner : MonoBehaviour
         if(enemiesAlive == 0 && enemiesLeftToSpawn == 0)
         {
             EndWave();
-            numsOfWave--;
+            waveRemaining--;
+            waveLeft.text = "Wave Remaining: " + waveRemaining.ToString();
+            announcer.text = "Wave Cleared";
+            Destroy(announcer, 4f);
         }
     }
 
@@ -73,7 +84,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator StartWave()
     {
-        if(numsOfWave > 0)
+        if(waveRemaining <= numsOfWave)
         {
             yield return new WaitForSeconds(timeBetweenWaves);
             isSpawning = true;
