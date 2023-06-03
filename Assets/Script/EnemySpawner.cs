@@ -5,7 +5,8 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
-public class EnemySpawner : MonoBehaviour
+using Unity.Netcode;
+public class EnemySpawner : NetworkBehaviour
 {
 
 
@@ -34,11 +35,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
-        onEnemyDestroy.AddListener(EnemyDestroy);
+        onEnemyDestroy.AddListener(EnemyDestroyServerRpc);
     }
 
-    private void Start()
+    public void Ready()
     {
+        if (!IsHost) return;
         waveRemaining = numsOfWave;
         waveLeft.text = "Wave Remaining: " + waveRemaining.ToString();
         announcer.text = "Survive for 5 wave";
@@ -53,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
 
         if(timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawn > 0)
         {
-            SpawnEnemy();
+            SpawnEnemyServerRpc();
             enemiesLeftToSpawn--;
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
@@ -61,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
 
         if(enemiesAlive == 0 && enemiesLeftToSpawn == 0)
         {
-            EndWave();
+            EndWaveServerRpc();
             waveRemaining--;
             waveLeft.text = "Wave Remaining: " + waveRemaining.ToString();
             announcer.text = "Wave Cleared";
@@ -69,18 +71,30 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void EndWave()
+[ServerRpc]
+    private void EndWaveServerRpc()
+    {
+        EndWaveClientRpc();
+    }
+[ClientRpc]
+    private void EndWaveClientRpc()
     {
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currentWave++;
         StartCoroutine(StartWave());
     }
-
-    private void EnemyDestroy()
+[ServerRpc]
+    private void EnemyDestroyServerRpc()
+    {
+        EnemyDestroyClientRpc();
+    }
+[ClientRpc]
+    private void EnemyDestroyClientRpc()
     {
         enemiesAlive--;
     }
+
 
     private IEnumerator StartWave()
     {
@@ -92,13 +106,17 @@ public class EnemySpawner : MonoBehaviour
         }
         
     }
-
-    private void SpawnEnemy()
+[ServerRpc]
+    private void SpawnEnemyServerRpc()
+    {
+        SpawnEnemyClientRpc();
+    }
+[ClientRpc]
+    private void SpawnEnemyClientRpc()
     {
         int rand = UnityEngine.Random.Range(0, enemyPrefabs.Length);
         GameObject prefabToSpawn = enemyPrefabs[rand];
         Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
-
     }
 
     private int EnemiesPerWave()

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Enemy3 : MonoBehaviour
+using Unity.Netcode;
+public class Enemy3 : NetworkBehaviour
 {
     public Transform target;
     public float speed = 1.5f;

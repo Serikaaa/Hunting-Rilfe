@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Enemy2 : MonoBehaviour
+public class Enemy2 : NetworkBehaviour
 {
     public Transform target;
     public float speed = 3f;

@@ -23,13 +23,16 @@ public class Shooting : NetworkBehaviour
     [ServerRpc]
     private void ShootServerRpc()
     {
+        ShootClientRpc();
+    }
+    [ClientRpc]
+    private void ShootClientRpc()
+    {
         GameObject bullet1 = Instantiate(bulletPrefab, firePoint1.position, firePoint1.rotation);
         Rigidbody2D rb = bullet1.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint1.up * bulletForce, ForceMode2D.Impulse);
-        spawnedbullet.Add(bullet1);
-        bullet1.GetComponent<Bullet>().parent = this;
-        bullet1.GetComponent<NetworkObject>().Spawn();
     }
+
     [ServerRpc(RequireOwnership =false)]
     public void DestroyServerRpc()
     {
@@ -39,5 +42,4 @@ public class Shooting : NetworkBehaviour
         Destroy(toDestroy);
     }
     
-
-}
+   }

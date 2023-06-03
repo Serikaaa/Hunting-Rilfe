@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Enemy1 : MonoBehaviour
+using Unity.Netcode;
+public class Enemy1 : NetworkBehaviour
 {
     public Transform target;
-    public float speed = 3f;
+    public float speed = 3f;    
     public float rotateSpeed = 0.0025f;
     private Rigidbody2D rb;
 
