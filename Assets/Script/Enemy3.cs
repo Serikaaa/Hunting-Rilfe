@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1 : MonoBehaviour
+public class Enemy3 : MonoBehaviour
 {
     public Transform target;
-    public float speed = 3f;
-    public float rotateSpeed = 0.0025f;
+    public float speed = 1.5f;
+    public float rotateSpeed = 0.25f;
     private Rigidbody2D rb;
 
     private void Start()
@@ -62,10 +62,5 @@ public class Enemy1 : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
-    }
-
-    private void Attack()
-    {
-        
     }
 }

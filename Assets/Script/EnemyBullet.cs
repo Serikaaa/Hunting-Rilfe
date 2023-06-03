@@ -4,12 +4,41 @@ using UnityEngine;
 using Unity.Netcode;
 public class EnemyBullet : NetworkBehaviour
 {
-    public GameObject hitEffect;
-    private void OnCollisionEnter2D(Collision2D collision)
+    public Shooting parent;
+    [SerializeField] public GameObject hitEffect;
+    public int damage = 1;
+    public PlayerHealth playerHealth;
+    /*  private void OnCollisionEnter2D(Collision2D collision)
+      {
+          if (!IsOwner) return;
+          GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+          Destroy(effect, 0.2f);
+          Destroy(gameObject);
+      }
+    */
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-       GameObject effect =  Instantiate(hitEffect, transform.position, Quaternion.identity);
-        Destroy(effect,1f);
+        if (!IsOwner) return;
+        GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 0.2f);
         Destroy(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+        if(collision.gameObject.tag == "Player")
+        {
+            playerHealth.TakeDamage(damage);
+            Destroy(gameObject);
+        }
+        
+    }
+
 }
 

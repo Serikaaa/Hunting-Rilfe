@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8093911250006518345}
   - component: {fileID: 8093911250006518390}
   - component: {fileID: 8093911250006518391}
+  - component: {fileID: -4286632387296267603}
+  - component: {fileID: 4188888182033855027}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -211,3 +213,29 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 2
   rotateSpeed: 0.25
+--- !u!114 &-4286632387296267603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093911250006518388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236ac8070585e3d469a38f614fe5916c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
+--- !u!114 &4188888182033855027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093911250006518388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a884fd452cf01428cfa814ee402127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2

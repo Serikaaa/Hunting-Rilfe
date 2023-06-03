@@ -84,7 +84,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator StartWave()
     {
-        if(waveRemaining <= numsOfWave)
+        if(waveRemaining > 0)
         {
             yield return new WaitForSeconds(timeBetweenWaves);
             isSpawning = true;
@@ -96,7 +96,7 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         int rand = UnityEngine.Random.Range(0, enemyPrefabs.Length);
-        GameObject prefabToSpawn = enemyPrefabs[0];
+        GameObject prefabToSpawn = enemyPrefabs[rand];
         Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
 
     }

@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 7468518592722779466}
   - component: {fileID: 7468518592722779467}
   - component: {fileID: 7468518592722779460}
+  - component: {fileID: -2120768094030158273}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -310,3 +311,16 @@ MonoBehaviour:
   firingPoint2: {fileID: 1199923145671953925}
   fireRate: 1
   bulletForce: 3
+--- !u!114 &-2120768094030158273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468518592722779461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a884fd452cf01428cfa814ee402127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1

@@ -6,6 +6,8 @@ public class Bullet : NetworkBehaviour
 {
     public Shooting parent;
     [SerializeField] public GameObject hitEffect;
+    private EnemyHealth enemyHealth;
+    public int damage;
   /*  private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!IsOwner) return;
@@ -22,6 +24,13 @@ public class Bullet : NetworkBehaviour
         GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
         Destroy(effect, 0.2f);
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        enemyHealth.TakeDamage(damage);
+        Destroy(gameObject);
+
     }
 
 }
