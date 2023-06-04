@@ -10,16 +10,42 @@ public class LoginLogoutRegister : MonoBehaviour
     public InputField accountUserName;
     public InputField accountPassword;
     public Text info;
+    private string currentUsername;
+    private string ukey = "accountusername";
     // Start is called before the first frame update
     void Start()
     {
+        currentUsername = "";
 
+        if (PlayerPrefs.HasKey(ukey))
+        {
+            if (PlayerPrefs.GetString(ukey) != "")
+            {
+                currentUsername = PlayerPrefs.GetString(ukey);
+                info.text = "You are loged in = " + currentUsername;
+            }
+            else
+            {
+                info.text = "You are not loged in.";
+            }
+        }
+        else
+        {
+            info.text = "You are not loged in.";
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void AccountLogout()
+    {
+        currentUsername = "";
+        PlayerPrefs.SetString(ukey, currentUsername);
+        info.text = "You are just logged out!";
     }
 
     public void AccountRegister()
@@ -73,8 +99,15 @@ public class LoginLogoutRegister : MonoBehaviour
             else
             {
                 string responseText = www.downloadHandler.text;
-                Debug.Log("Response = " + responseText);
-                info.text = "Response = " + responseText;
+                if(responseText == "1")
+                {
+                    PlayerPrefs.SetString(ukey, uName);
+                    info.text = "Login success with username " + uName;
+                }
+                else
+                {
+                    info.text = "Login failed!";
+                }
             }
         }
     }
