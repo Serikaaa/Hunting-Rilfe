@@ -36,9 +36,10 @@ public class EnemySpawner : NetworkBehaviour
     private void Awake()
     {
         onEnemyDestroy.AddListener(EnemyDestroyServerRpc);
+   
     }
-
-    public void Ready()
+[ClientRpc]
+    public void ReadyClientRpc()
     {
         if (!IsHost) return;
         waveRemaining = numsOfWave;
@@ -53,23 +54,25 @@ public class EnemySpawner : NetworkBehaviour
         if (!isSpawning) return;
         timeSinceLastSpawn += Time.deltaTime;
 
-        if(timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawn > 0)
+        if (timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawn > 0)
         {
-            SpawnEnemyServerRpc();
+            int rand = UnityEngine.Random.Range(0, enemyPrefabs.Length);
+            SpawnEnemyClientRpc(rand);
             enemiesLeftToSpawn--;
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
         }
 
-        if(enemiesAlive == 0 && enemiesLeftToSpawn == 0)
+        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
         {
             EndWaveServerRpc();
             waveRemaining--;
             waveLeft.text = "Wave Remaining: " + waveRemaining.ToString();
-            announcer.text = "Wave Cleared";
+            announcer.text = "Wave Cleared";    
             Destroy(announcer, 4f);
         }
     }
+
 
 [ServerRpc]
     private void EndWaveServerRpc()
@@ -106,18 +109,14 @@ public class EnemySpawner : NetworkBehaviour
         }
         
     }
-[ServerRpc]
-    private void SpawnEnemyServerRpc()
-    {
-        SpawnEnemyClientRpc();
-    }
 [ClientRpc]
-    private void SpawnEnemyClientRpc()
+    private void SpawnEnemyClientRpc(int rand )
     {
-        int rand = UnityEngine.Random.Range(0, enemyPrefabs.Length);
         GameObject prefabToSpawn = enemyPrefabs[rand];
         Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+        prefabToSpawn.GetComponent<NetworkObject>();
     }
+
 
     private int EnemiesPerWave()
     {

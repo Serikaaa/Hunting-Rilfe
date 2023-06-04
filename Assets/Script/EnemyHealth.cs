@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class EnemyHealth : MonoBehaviour
+using Unity.Netcode;
+public class EnemyHealth : NetworkBehaviour
 {
     // Start is called before the first frame update
     public int maxHealth = 10;

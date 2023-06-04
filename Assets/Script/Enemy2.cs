@@ -42,7 +42,6 @@ public class Enemy2 : NetworkBehaviour
         }
         
     }
-
     private void Shoot()
     {
         if(timeToFire <= 0f)
@@ -54,8 +53,6 @@ public class Enemy2 : NetworkBehaviour
             Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
             rb1.AddForce(firingPoint1.up * bulletForce, ForceMode2D.Impulse);
             rb2.AddForce(firingPoint2.up * bulletForce, ForceMode2D.Impulse);
-            //bullet1.GetComponent<NetworkObject>().Spawn();
-            //bullet2.GetComponent<NetworkObject>().Spawn();
             Destroy(bullet1, 5f);
             Destroy(bullet2, 5f);
             timeToFire = fireRate;
