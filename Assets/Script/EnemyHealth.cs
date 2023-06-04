@@ -6,17 +6,16 @@ public class EnemyHealth : NetworkBehaviour
 {
     // Start is called before the first frame update
     public int maxHealth = 10;
-    public int health;
-    void Start()
+    private int health;
+    private void Start()
     {
         health = maxHealth;
     }
-
     // Update is called once per frame
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if (health < 0)
+        if (health <= 0)
         {
             Destroy(gameObject);
         }

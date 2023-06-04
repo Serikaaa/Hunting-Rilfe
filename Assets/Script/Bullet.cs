@@ -11,8 +11,12 @@ public class Bullet : NetworkBehaviour
     {
         GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
         Destroy(effect, 0.2f);
-        Destroy(gameObject);
-        enemyHealth.TakeDamage(damage);
+        var enemy = collision.collider.GetComponent<EnemyHealth>();
+        if (enemy)
+        {
+            enemy.TakeDamage(damage);
+        }
+        
         Destroy(gameObject);
 
     }

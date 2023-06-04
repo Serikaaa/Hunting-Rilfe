@@ -17,26 +17,16 @@ public class EnemyBullet : NetworkBehaviour
       }
     */
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!IsOwner) return;
-        GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-        Destroy(effect, 0.2f);
-        Destroy(gameObject);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 0.2f);
+        var player = collision.collider.GetComponent<PlayerHealth>();
+        if (player)
         {
-            Destroy(gameObject);
+            player.TakeDamage(damage);
         }
-        if(collision.gameObject.tag == "Player")
-        {
-            playerHealth.TakeDamage(damage);
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
         
     }
 
