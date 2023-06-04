@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class LoginLogoutRegister : MonoBehaviour
+public class Login_Scripts : MonoBehaviour
 {
     string baseUrl = "http://localhost/Hunting_Rifle_database/";
     public InputField accountUserName;
@@ -100,12 +100,12 @@ public class LoginLogoutRegister : MonoBehaviour
             else
             {
                 string responseText = www.downloadHandler.text;
-                if(responseText == "1")
+                if (responseText == "1")
                 {
                     PlayerPrefs.SetString(ukey, uName);
                     //info.text = "Login success with username " + uName;
-                    SceneManager.LoadSceneAsync("Lobby");
-                    
+                    SceneManager.LoadSceneAsync("LobbyScene");
+
                 }
                 else
                 {
